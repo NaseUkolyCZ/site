@@ -20,7 +20,6 @@ from judge.views.problem_data import ProblemDataView, ProblemSubmissionDiff, \
 from judge.views.register import RegistrationView, ActivationView
 from judge.views.select2 import UserSelect2View, OrganizationSelect2View, ProblemSelect2View, CommentSelect2View, \
     ContestSelect2View, UserSearchSelect2View, ContestUserSearchSelect2View, TicketUserSelect2View, AssigneeSelect2View
-from django.views.decorators.csrf import csrf_exempt
 
 admin.autodiscover()
 
@@ -47,11 +46,11 @@ register_patterns = [
         TitledTemplateView.as_view(template_name='registration/registration_closed.html',
                                    title='Registration not allowed'),
         name='registration_disallowed'),
-    url(r'^login/$', csrf_exempt(auth_views.LoginView.as_view(
+    url(r'^login/$', auth_views.LoginView.as_view(
         template_name='registration/login.html',
         extra_context={'title': _('Login')},
         authentication_form=CustomAuthenticationForm,
-    )), name='auth_login'),
+    ), name='auth_login'),
     url(r'^logout/$', user.UserLogoutView.as_view(), name='auth_logout'),
     url(r'^password/change/$', auth_views.PasswordChangeView.as_view(
         template_name='registration/password_change_form.html'
